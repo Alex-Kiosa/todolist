@@ -1,25 +1,52 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {Todolist} from './Todolist';
+import {v1} from "uuid";
+
+export type FilterValuesType = "all" | "active" | "completed";
 
 function App() {
 
-    const tasks1 = [
-        {id: 1, title: "HTML&CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 4, title: "React", isDone: false}
-    ];
+    let [tasks, setTasks] = useState([
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false },
+        { id: v1(), title: "Rest API", isDone: false },
+        { id: v1(), title: "GraphQL", isDone: false },
+    ]);
 
-    const tasks2 = [
-        {id: 1, title: "Buy products", isDone: true},
-        {id: 2, title: "Take out the trash", isDone: false},
-        {id: 4, title: "Rest", isDone: false}
-    ];
+    const addTask = (taskTitle: string) => {
+        let task = { id: v1(), title: taskTitle, isDone: false }
+        setTasks([task, ...tasks])
+    }
+
+    function removeTask(id: string) {
+        let filteredTasks = tasks.filter(t => t.id != id);
+        setTasks(filteredTasks);
+    }
+
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = tasks;
+
+    if (filter === "active") {
+        tasksForTodolist = tasks.filter(t => t.isDone === false);
+    }
+    if (filter === "completed") {
+        tasksForTodolist = tasks.filter(t => t.isDone === true);
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
 
     return (
         <div className="App">
-            <Todolist title={"What to learn 1"} tasks={tasks1}/>
-            <Todolist title={"Life"} tasks={tasks2}/>
+            <Todolist title="What to learn"
+                      tasks={tasksForTodolist}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask} />
         </div>
     );
 }

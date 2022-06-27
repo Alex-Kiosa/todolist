@@ -1,16 +1,13 @@
 import React from "react";
 
-type PropsType = {
-    name: string
-    callback: () => void
+type DefaultButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+
+type CustomButtonProps = DefaultButtonProps & {
+    buttonName: string
 }
 
-export const Button = (props: PropsType) => {
-    const onclickHandler = () => {
-        props.callback()
-    }
-
+export const Button: React.FC<CustomButtonProps> = ({buttonName,...restProps}) => {
     return (
-        <button onClick={onclickHandler}>{props.name}</button>
+        <button {...restProps}>{buttonName}</button>
     )
 }

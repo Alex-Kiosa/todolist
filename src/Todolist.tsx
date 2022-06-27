@@ -12,10 +12,10 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
+    removeTask: (taskId: string, todoListId: string) => void
     changeFilter: (value: FilterValuesType, todoListId: string) => void
-    addTask: (taskTitle: string) => void
-    changeStatus: (taskId: string, isDone: boolean) => void
+    addTask: (taskTitle: string, todoListId: string) => void
+    changeStatus: (taskId: string, isDone: boolean, todoListId: string) => void
     filter: FilterValuesType
 }
 
@@ -32,14 +32,14 @@ export function Todolist(props: PropsType) {
 
     const addTaskHandler = () => {
         if (taskTitle.trim() !== "") {
-            props.addTask(taskTitle)
+            props.addTask(taskTitle, props.id)
             setTaskTitle("")
         } else {
             setError("Title is required")
         }
     }
 
-    const removeTaskHandler = (taskId: string) => props.removeTask(taskId)
+    const removeTaskHandler = (taskId: string) => props.removeTask(taskId, props.id)
 
     return <div>
         <h3>{props.title}</h3>
@@ -52,7 +52,7 @@ export function Todolist(props: PropsType) {
             {props.tasks.map(t => {
                 const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
                     let newIsDoneValue = e.currentTarget.checked
-                    props.changeStatus(t.id, newIsDoneValue)
+                    props.changeStatus(t.id, newIsDoneValue, props.id)
                 }
 
                 return (

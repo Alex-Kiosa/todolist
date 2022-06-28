@@ -12,6 +12,7 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
+    removeTodoList: (todoListId: string) => void
     removeTask: (taskId: string, todoListId: string) => void
     changeFilter: (value: FilterValuesType, todoListId: string) => void
     addTask: (taskTitle: string, todoListId: string) => void
@@ -22,6 +23,8 @@ type PropsType = {
 export function Todolist(props: PropsType) {
     const [taskTitle, setTaskTitle] = useState("");
     const [error, setError] = useState<string>("")
+
+    const removeTodoListHandler = () => props.removeTodoList(props.id)
 
     const onchangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => setTaskTitle(event.currentTarget.value)
 
@@ -42,7 +45,10 @@ export function Todolist(props: PropsType) {
     const removeTaskHandler = (taskId: string) => props.removeTask(taskId, props.id)
 
     return <div>
-        <h3>{props.title}</h3>
+        <h3>
+            {props.title}
+            <Button buttonName={"Удалить"} onClick={removeTodoListHandler}/>
+        </h3>
         <div>
             <input className={error ? "error" : ""} onChange={onchangeInputHandler} onKeyDown={onkeypressInputHandler} value={taskTitle}/>
             <Button buttonName="+" onClick={addTaskHandler}/>

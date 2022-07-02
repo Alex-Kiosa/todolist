@@ -1,7 +1,52 @@
-import React from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 
-export const EditableText = () => {
+type EditableTextPropsType = {
+    value: string
+    onChange: (editedText: string) => void
+}
+
+export const EditableText = (props: EditableTextPropsType) => {
+    const [title, setTitle] = useState(props.value)
+    const [editMode, setEditMode] = useState(false)
+    const [error, setError] = useState<string>("")
+
+    const activateEditMode = () => {
+        setEditMode(true)
+        // setTitle(props.value)
+    }
+
+    const activateViewMode = () => {
+        if (title.trim() === "") {
+           setError('Field is required')
+        } else {
+            setEditMode(false)
+            props.onChange(title)
+        }
+    }
+
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.currentTarget.value)
+    }
+
+    const onKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        setError("")
+        setTitle(event.currentTarget.value)
+        if (event.key === "Enter") activateViewMode()
+    }
+
     return (
-        <div></div>
+        editMode ?
+            <div>
+                <input
+                    className={error ? "error" : ""}
+                    onChange={onChange}
+                    onKeyDown={onKeyPress}
+                    value={title}
+                    onBlur={activateViewMode}
+                    autoFocus
+                />
+                <div className="error-message">{error}</div>
+            </div>
+            : <span onDoubleClick={activateEditMode}>{props.value}</span>
     )
 }

@@ -23,7 +23,7 @@ function App() {
     const todoListId2 = v1();
 
     const [todoLists, setTodoLists] = useState<Array<TodoLIstType>>([
-        {id: todoListId1, title: "What to lear", filter: "all"},
+        {id: todoListId1, title: "What to learn", filter: "all"},
         {id: todoListId2, title: "What to buy", filter: "all"}
     ])
 
@@ -44,9 +44,9 @@ function App() {
 
     const addTodoList = (title: string) => {
         const newTodoListId = v1()
-        const newTodoList : TodoLIstType = {id: newTodoListId, title: title, filter: "all"}
+        const newTodoList: TodoLIstType = {id: newTodoListId, title: title, filter: "all"}
         setTodoLists([newTodoList, ...todoLists])
-        setTasksObj({...tasksObj, [newTodoListId] : []})
+        setTasksObj({...tasksObj, [newTodoListId]: []})
     }
 
     const removeTodoList = (todoListId: string) => {
@@ -84,6 +84,22 @@ function App() {
         }
     }
 
+    const onChangeEditableText = (taskId: string, editedText: string, todoListId: string) => {
+        const task = tasksObj[todoListId].find(t => t.id === taskId)
+        if (task) {
+            task.title = editedText
+            setTasksObj({...tasksObj})
+        }
+    }
+
+    const onChangeTodoListTitle = (todoListId: string, editedText: string) => {
+        const todoList = todoLists.find(tl => tl.id === todoListId)
+        if (todoList) {
+            todoList.title = editedText
+            setTodoLists([...todoLists])
+        }
+    }
+
     return (
         <div className="App">
             <AddItemForm addItem={addTodoList}/>
@@ -109,6 +125,8 @@ function App() {
                             changeFilter={changeFilter}
                             addTask={addTask}
                             changeStatus={changeStatus}
+                            onChange={onChangeEditableText}
+                            onChangeTodoListTitle={onChangeTodoListTitle}
                             filter={tl.filter}
                         />
                     )

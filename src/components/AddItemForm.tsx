@@ -9,14 +9,14 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     const [itemTitle, setItemTitle] = useState("")
     const [error, setError] = useState<string>("")
 
-    const onchangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => setItemTitle(event.currentTarget.value)
+    const onchangeInput = (event: ChangeEvent<HTMLInputElement>) => setItemTitle(event.currentTarget.value)
 
-    const onkeypressInputHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    const onkeypressInput = (event: KeyboardEvent<HTMLInputElement>) => {
         setError("")
-        if (event.key === 'Enter') addItemHandler()
+        if (event.key === 'Enter') addItem()
     }
 
-    const addItemHandler = () => {
+    const addItem = () => {
         if (itemTitle.trim() !== "") {
             props.addItem(itemTitle)
             setItemTitle("")
@@ -27,9 +27,9 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     return (
         <div>
-            <input className={error ? "error" : ""} onChange={onchangeInputHandler}
-                   onKeyDown={onkeypressInputHandler} value={itemTitle}/>
-            <Button buttonName="+" onClick={addItemHandler}/>
+            <input className={error ? "error" : ""} onChange={onchangeInput}
+                   onKeyDown={onkeypressInput} value={itemTitle}/>
+            <Button buttonName="+" onClick={addItem}/>
             <div className="error-message">{error}</div>
         </div>
     )

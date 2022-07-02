@@ -6,8 +6,8 @@ type EditableTextPropsType = {
 }
 
 export const EditableText = (props: EditableTextPropsType) => {
-    const [title, setTitle] = useState(props.value)
-    const [editMode, setEditMode] = useState(false)
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [title, setTitle] = useState<string>(props.value)
     const [error, setError] = useState<string>("")
 
     const activateEditMode = () => {

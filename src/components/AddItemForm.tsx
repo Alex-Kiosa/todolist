@@ -1,12 +1,12 @@
-import {Button} from "./Button";
 import React, {useState, ChangeEvent, KeyboardEvent} from "react";
+import {Button} from "./Button";
 
 type AddItemFormPropsType = {
     addItem: (itemTitle: string) => void
 }
 
 export const AddItemForm = (props: AddItemFormPropsType) => {
-    const [itemTitle, setItemTitle] = useState("")
+    const [itemTitle, setItemTitle] = useState<string>("")
     const [error, setError] = useState<string>("")
 
     const onchangeInput = (event: ChangeEvent<HTMLInputElement>) => setItemTitle(event.currentTarget.value)
@@ -27,8 +27,12 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     return (
         <div>
-            <input className={error ? "error" : ""} onChange={onchangeInput}
-                   onKeyDown={onkeypressInput} value={itemTitle}/>
+            <input
+                className={error ? "error" : ""}
+                onChange={onchangeInput}
+                onKeyDown={onkeypressInput}
+                value={itemTitle}
+            />
             <Button buttonName="+" onClick={addItem}/>
             <div className="error-message">{error}</div>
         </div>

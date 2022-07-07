@@ -1,4 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Input} from "@mui/material";
 
 type EditableTextPropsType = {
     value: string
@@ -12,7 +13,6 @@ export const EditableText = (props: EditableTextPropsType) => {
 
     const activateEditMode = () => {
         setEditMode(true)
-        // setTitle(props.value)
     }
 
     const activateViewMode = () => {
@@ -37,7 +37,8 @@ export const EditableText = (props: EditableTextPropsType) => {
     return (
         editMode ?
             <div>
-                <input
+                <Input
+
                     className={error ? "error" : ""}
                     onChange={onChange}
                     onKeyDown={onKeyPress}

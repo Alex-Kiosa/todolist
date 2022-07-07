@@ -1,8 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from '../App';
-import {Button} from "./Button";
 import {AddItemForm} from "./AddItemForm";
 import {EditableText} from "./EditableText";
+import {Button, IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import Checkbox from '@mui/material/Checkbox';
 
 type TaskType = {
     id: string
@@ -35,10 +37,12 @@ export function Todolist(props: PropsType) {
         <div>
             <h3>
                 <EditableText value={props.title} onChange={changeTodoListTitle}/>
-                <Button buttonName="Delete" onClick={removeTodoList}/>
+                <IconButton aria-label="delete" onClick={removeTodoList}>
+                    <DeleteIcon />
+                </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
-            <ul>
+            <div>
                 {
                     props.tasks.map(t => {
                         const changeTaskTitle = (editedText: string) => props.changeTaskTitle(t.id, editedText, props.id)
@@ -49,22 +53,40 @@ export function Todolist(props: PropsType) {
                         }
 
                         return (
-                            <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                                <input type="checkbox" checked={t.isDone} onChange={changeStatus}/>
+                            <div key={t.id} className={t.isDone ? "is-done" : ""}>
+                                <Checkbox
+                                    checked={t.isDone}
+                                    color="secondary"
+                                    onChange={changeStatus}
+                                />
                                 <EditableText value={t.title} onChange={changeTaskTitle}/>
-                                <Button buttonName={"x"} onClick={() => removeTask(t.id)}/>
-                            </li>
+                                <IconButton aria-label="delete" onClick={() => removeTask(t.id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </div>
                         )
                     })
                 }
-            </ul>
+            </div>
             <div>
-                <Button className={props.filter === "all" ? "active-filter" : ""} buttonName={"All"}
-                        onClick={() => props.changeFilter('all', props.id)}/>
-                <Button className={props.filter === "active" ? "active-filter" : ""} buttonName={"Active"}
-                        onClick={() => props.changeFilter('active', props.id)}/>
-                <Button className={props.filter === "completed" ? "active-filter" : ""} buttonName={"Completed"}
-                        onClick={() => props.changeFilter('completed', props.id)}/>
+                <Button
+                    variant={props.filter === "all" ? "contained" : "outlined"}
+                    onClick={() => props.changeFilter('all', props.id)}
+                    color={"secondary"}>
+                    All
+                </Button>
+                <Button
+                    variant={props.filter === "active" ? "contained" : "outlined"}
+                    onClick={() => props.changeFilter('active', props.id)}
+                    color={"secondary"}>
+                    Active
+                </Button>
+                <Button
+                    variant={props.filter === "completed" ? "contained" : "outlined"}
+                    onClick={() => props.changeFilter('completed', props.id)}
+                    color={"secondary"}>
+                    Completed
+                </Button>
             </div>
         </div>
     )

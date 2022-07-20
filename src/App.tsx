@@ -64,19 +64,19 @@ function App() {
         delete tasksObj[todoListId]
     }
 
-    const addTask = (taskTitle: string, todoListId: string) => {
-        const newTask = {id: v1(), title: taskTitle, isDone: false}
-        const newTasks = tasksObj[todoListId]
-        tasksObj[todoListId] = [newTask, ...newTasks]
-        setTasksObj({...tasksObj})
-    }
-
     const changeFilter = (value: FilterValuesType, todoListId: string) => {
         const newTodoList = todoLists.find(tl => tl.id === todoListId)
         if (newTodoList) {
             newTodoList.filter = value
             setTodoLists([...todoLists])
         }
+    }
+
+    const addTask = (taskTitle: string, todoListId: string) => {
+        const newTask = {id: v1(), title: taskTitle, isDone: false}
+        const newTasks = tasksObj[todoListId]
+        tasksObj[todoListId] = [newTask, ...newTasks]
+        setTasksObj({...tasksObj})
     }
 
     const changeStatus = (taskId: string, isDone: boolean, todoListId: string) => {

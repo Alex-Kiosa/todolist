@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {v1} from "uuid";
 import './App.css';
-import {Todolist} from './components/Todolist';
+import {TaskType, Todolist} from './components/Todolist';
 import {AddItemForm} from "./components/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Toolbar, Typography, Box, Paper} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -11,6 +11,10 @@ export type TodoLIstType = {
     id: string
     title: string
     filter: FilterValuesType
+}
+
+export type TaskStateType = {
+    [key: string]: Array<TaskType>
 }
 
 // CRUD operations
@@ -64,7 +68,7 @@ function App() {
         delete tasksObj[todoListId]
     }
 
-    const changeFilter = (value: FilterValuesType, todoListId: string) => {
+    const changeTodolistFilter = (value: FilterValuesType, todoListId: string) => {
         const newTodoList = todoLists.find(tl => tl.id === todoListId)
         if (newTodoList) {
             newTodoList.filter = value
@@ -79,7 +83,7 @@ function App() {
         setTasksObj({...tasksObj})
     }
 
-    const changeStatus = (taskId: string, isDone: boolean, todoListId: string) => {
+    const changeTaskStatus = (taskId: string, isDone: boolean, todoListId: string) => {
         const newTask = tasksObj[todoListId].find(t => t.id === taskId)
         if (newTask) {
             newTask.isDone = isDone
@@ -153,8 +157,8 @@ function App() {
                                                 tasks={tasksForTodolist}
 
                                                 addTask={addTask}
-                                                changeFilter={changeFilter}
-                                                changeStatus={changeStatus}
+                                                changeFilter={changeTodolistFilter}
+                                                changeStatus={changeTaskStatus}
                                                 changeTaskTitle={changeTaskTitle}
                                                 removeTask={removeTask}
                                             />

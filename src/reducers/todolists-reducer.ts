@@ -1,6 +1,6 @@
 import {FilterValuesType, TodoLIstType} from "../App";
 
-// action - объект, который описывает action
+// action - объект, который описывает какое-то событие в приложении
 type RemoveTodoListAT = {
     type: "REMOVE-TODOLIST" // тип преобразования
     id: string
@@ -24,13 +24,13 @@ type ChangeTodoListFilterAT = {
     id: string
 }
 
-type ActionType = RemoveTodoListAT | AddTodoLIstAT | ChangeTodoListTitleAT | ChangeTodoListFilterAT
+type ActionsType = RemoveTodoListAT | AddTodoLIstAT | ChangeTodoListTitleAT | ChangeTodoListFilterAT
 
 // меня вызовут и дадут мне стейт (почти всегда объект)
 // и инструкцию (action, тоже объект)
 // согласно прописанному type в этом action (инструкции) я поменяю state
 
-export const todoListsReducer = (todoLists: Array<TodoLIstType>, action: ActionType): Array<TodoLIstType> => {
+export const todoListsReducer = (todoLists: Array<TodoLIstType>, action: ActionsType): Array<TodoLIstType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
             return todoLists.filter(tl => tl.id !== action.id)
@@ -57,25 +57,27 @@ export const todoListsReducer = (todoLists: Array<TodoLIstType>, action: ActionT
     }
 }
 
-//action creator - для создания action объектов
-export const RemoveTodoListAC = (id: string): RemoveTodoListAT => ({
+// action creators - нужны для создания action объектов
+// другими словами responsibility action creator - создание объекта action
+// action creators - классический пример реализации паттерна фабричных ф-ций
+export const removeTodoListAC = (id: string): RemoveTodoListAT => ({
     type: "REMOVE-TODOLIST",
     id
 })
 
-export const AddTodoListAC = (title: string, id: string): AddTodoLIstAT => ({
+export const addTodoListAC = (title: string, id: string): AddTodoLIstAT => ({
     type: "ADD-TODOLIST",
     title,
     id
 })
 
-export const ChangeTodoListTitleAC = (title: string, id: string): ChangeTodoListTitleAT => ({
+export const changeTodoListTitleAC = (title: string, id: string): ChangeTodoListTitleAT => ({
     type: "CHANGE-TODOLIST-TITLE",
     newTodoListTitle: title,
     id
 })
 
-export const ChangeTodoListFilterAC = (value: FilterValuesType, id: string): ChangeTodoListFilterAT => ({
+export const changeTodoListFilterAC = (value: FilterValuesType, id: string): ChangeTodoListFilterAT => ({
     type: "CHANGE-TODOLIST-FILTER",
     value,
     id

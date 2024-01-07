@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from '../App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableText} from "./EditableText";
-import {Button, IconButton} from "@mui/material";
+import {Button, IconButton, Stack} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 
@@ -34,13 +34,13 @@ export function Todolist(props: PropsType) {
     const removeTask = (taskId: string) => props.removeTask(taskId, props.id)
 
     return (
-        <div>
-            <h3>
-                <EditableText value={props.title} onChange={changeTodoListTitle}/>
-                <IconButton aria-label="delete" onClick={removeTodoList}>
+        <>
+            <Stack direction="row" sx={{justifyContent: 'space-between'}}>
+                <h3><EditableText value={props.title} onChange={changeTodoListTitle}/></h3>
+                <IconButton aria-label="delete" onClick={removeTodoList} sx={{alignSelf: "center"}}>
                     <DeleteIcon />
                 </IconButton>
-            </h3>
+            </Stack>
             <AddItemForm addItem={addTask}/>
             <div>
                 {
@@ -68,7 +68,7 @@ export function Todolist(props: PropsType) {
                     })
                 }
             </div>
-            <div>
+            <Stack direction={"row"} spacing={2}>
                 <Button
                     variant={props.filter === "all" ? "contained" : "outlined"}
                     onClick={() => props.changeFilter('all', props.id)}
@@ -87,7 +87,7 @@ export function Todolist(props: PropsType) {
                     color={"secondary"}>
                     Completed
                 </Button>
-            </div>
-        </div>
+            </Stack>
+        </>
     )
 }

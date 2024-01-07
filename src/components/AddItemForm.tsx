@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {IconButton, TextField} from "@mui/material";
-import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
+import {IconButton, Stack, TextField} from "@mui/material";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type AddItemFormPropsType = {
     addItem: (itemTitle: string) => void
@@ -27,7 +27,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     }
 
     return (
-        <div>
+        <Stack direction={"row"}>
             <TextField
                 id="outlined-error-helper-text"
                 size="small"
@@ -38,15 +38,18 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                 onChange={onchangeInput}
                 onKeyDown={onkeypressInput}
                 value={itemTitle}
+                sx={{backgroundColor: "#fff"}}
             />
             <IconButton
                 aria-label="add item"
                 onClick={addItem}
-                color="secondary"
                 size="large"
+                color="primary"
+                // sx={{borderRadius: "0", bgcolor: 'primary.main', color: "#fff"}}
+                // disabled={!itemTitle}
             >
-                <AddBoxRoundedIcon />
+                <AddBoxIcon/>
             </IconButton>
-        </div>
+        </Stack>
     )
 }

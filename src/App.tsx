@@ -125,12 +125,8 @@ function App() {
                         <Button color="inherit">Login</Button>
                     </Toolbar>
                 </AppBar>
-                <Grid sx={{flexGrow: 1}} container spacing={2} style={{margin: "80px 0 0 0"}}>
-                    <Grid item xs={12}>
-                        <AddItemForm addItem={addTodoList}/>
-                    </Grid>
-                </Grid>
-                <Grid sx={{flexGrow: 1}} container spacing={2}>
+                <Box style={{margin: "85px 0 25px 0"}}><AddItemForm addItem={addTodoList}/></Box>
+                <Grid container sx={{flexGrow: 1}} spacing={3}>
                     {
                         todoLists.map(tl => {
                             let tasksForTodolist = tasksObj[tl.id];
@@ -143,7 +139,7 @@ function App() {
                             }
 
                             return (
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={6} lg={4}>
                                     <Paper variant={"outlined"}>
                                         <Box sx={{p: 2}}>
                                             <Todolist

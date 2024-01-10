@@ -15,7 +15,7 @@ test('task should be added in correct todolist', ()=>{
         ]
     }
 
-    const endState = tasksReducer(startState, addTaskAC("Oil", "todolistId2"))
+    const endState = tasksReducer(startState, addTaskAC("Oil", "todoListId2"))
 
     expect(endState["todoListId1"].length).toBe(3)
     expect(endState["todoListId2"].length).toBe(3)

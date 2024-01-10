@@ -24,21 +24,16 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
     switch (action.type) {
         case "ADD-TASK":
             const stateCopy = {...state}
-            const tasks = stateCopy[action.todoListId]
             const newTask = {id: v1(), title: action.title, isDone: false}
-            const tasksCopy = [
+            stateCopy[action.todoListId] = [
+                newTask,
                 {id: "1", title: "Chiсken", isDone: true},
-
+                {id: "2", title: "Fruits", isDone: true},
             ]
-            stateCopy[action.todoListId] = [{id: "1", title: "Chiсken", isDone: true}]
             return stateCopy
         case "REMOVE-TASK":
             const newState = {...state}
-            const newTasks = state[action.todoListId].filter(t => t.id !== action.taskId)
-            newState["todolistId2"] = [
-                {id: "1", title: "Chiсken", isDone: true},
-
-            ]
+            newState[action.todoListId] = newState[action.todoListId].filter(t => t.id !== action.taskId)
             return newState
 
         default:

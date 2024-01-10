@@ -38,7 +38,6 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                 onChange={onchangeInput}
                 onKeyDown={onkeypressInput}
                 value={itemTitle}
-                sx={{backgroundColor: "#fff"}}
             />
             <IconButton
                 aria-label="add item"

@@ -18,10 +18,10 @@ type PropsType = {
     tasks: Array<TaskType>
     removeTodoList: (todoListId: string) => void
     removeTask: (taskId: string, todoListId: string) => void
-    changeFilter: (value: FilterValuesType, todoListId: string) => void
+    changeFilter: (todoListId: string,value: FilterValuesType) => void
     addTask: (taskTitle: string, todoListId: string) => void
-    changeStatus: (taskId: string, isDone: boolean, todoListId: string) => void
-    changeTaskTitle: (taskId: string, editedText: string, todolistId: string) => void
+    changeStatus: (todoListId: string, taskId: string, isDone: boolean) => void
+    changeTaskTitle: (todolistId: string, taskId: string, editedText: string,) => void
     changeTodoListTitle: (todoListId: string, editedText: string) => void
     filter: FilterValuesType
 }
@@ -45,11 +45,11 @@ export function Todolist(props: PropsType) {
             <div>
                 {
                     props.tasks.map(t => {
-                        const changeTaskTitle = (editedText: string) => props.changeTaskTitle(t.id, editedText, props.id)
+                        const changeTaskTitle = (editedText: string) => props.changeTaskTitle(props.id, t.id, editedText)
 
                         const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             let newIsDoneValue = e.currentTarget.checked
-                            props.changeStatus(t.id, newIsDoneValue, props.id)
+                            props.changeStatus(props.id, t.id, newIsDoneValue)
                         }
 
                         return (
@@ -71,19 +71,19 @@ export function Todolist(props: PropsType) {
             <Stack direction={"row"} spacing={2}>
                 <Button
                     variant={props.filter === "all" ? "contained" : "outlined"}
-                    onClick={() => props.changeFilter('all', props.id)}
+                    onClick={() => props.changeFilter(props.id, 'all')}
                     color={"secondary"}>
                     All
                 </Button>
                 <Button
                     variant={props.filter === "active" ? "contained" : "outlined"}
-                    onClick={() => props.changeFilter('active', props.id)}
+                    onClick={() => props.changeFilter(props.id, 'active')}
                     color={"secondary"}>
                     Active
                 </Button>
                 <Button
                     variant={props.filter === "completed" ? "contained" : "outlined"}
-                    onClick={() => props.changeFilter('completed', props.id)}
+                    onClick={() => props.changeFilter(props.id, 'completed')}
                     color={"secondary"}>
                     Completed
                 </Button>

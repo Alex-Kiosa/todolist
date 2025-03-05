@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from '../App';
+import {FilterValuesType} from '../app/App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableText} from "./EditableText";
 import {Button, IconButton, Stack} from "@mui/material";
@@ -17,9 +17,9 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTodoList: (todoListId: string) => void
-    removeTask: (taskId: string, todoListId: string) => void
+    removeTask: (todoListId: string, taskId: string) => void
     changeFilter: (todoListId: string,value: FilterValuesType) => void
-    addTask: (taskTitle: string, todoListId: string) => void
+    addTask: (todoListId: string, taskTitle: string) => void
     changeStatus: (todoListId: string, taskId: string, isDone: boolean) => void
     changeTaskTitle: (todolistId: string, taskId: string, editedText: string,) => void
     changeTodoListTitle: (todoListId: string, editedText: string) => void
@@ -30,8 +30,8 @@ export function Todolist(props: PropsType) {
 
     const removeTodoList = () => props.removeTodoList(props.id)
     const changeTodoListTitle = (editedText: string) => props.changeTodoListTitle(props.id, editedText)
-    const addTask = (itemTitle: string) => props.addTask(itemTitle, props.id)
-    const removeTask = (taskId: string) => props.removeTask(taskId, props.id)
+    const addTask = (itemTitle: string) => props.addTask(props.id, itemTitle)
+    const removeTask = (taskId: string) => props.removeTask(props.id, taskId)
 
     return (
         <>

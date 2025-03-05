@@ -1,7 +1,6 @@
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasks-reducer";
-import {TasksStateType} from "../App";
-import {v1} from "uuid";
-import {addTodolistAC, removeTodolistAC, todolistsReducer} from "./todolists-reducer";
+import {TasksStateType} from "../app/App";
+import {addTodolistAC, removeTodolistAC} from "./todolists-reducer";
 
 test('task should be added in correct todolist', ()=>{
     const startState: TasksStateType = {
@@ -16,7 +15,7 @@ test('task should be added in correct todolist', ()=>{
         ]
     }
 
-    const endState = tasksReducer(startState, addTaskAC( "todoListId2", "Oil"))
+    const endState = tasksReducer(startState, addTaskAC( {todoListId: "todoListId2", title: "Oil"}))
 
     expect(endState["todoListId1"].length).toBe(3)
     expect(endState["todoListId2"].length).toBe(3)
@@ -38,7 +37,7 @@ test('task should be removed in correct todolist', () => {
         ]
     }
 
-    const endState = tasksReducer(startState, removeTaskAC("todoListId1", "2"))
+    const endState = tasksReducer(startState, removeTaskAC({todoListId: "todoListId1", taskId: "2"}))
 
     expect(endState["todoListId1"].length).toBe(2)
     expect(endState["todoListId2"].length).toBe(2)
@@ -58,7 +57,7 @@ test('status of specific task should be changed', ()=>{
         ]
     }
 
-    const endState = tasksReducer(startState, changeTaskStatusAC("todoListId1", "2", false))
+    const endState = tasksReducer(startState, changeTaskStatusAC({todoListId: "todoListId1", taskId: "2", isDone: false}))
 
     expect(endState["todoListId1"][1].isDone).toBe(false)
     expect(endState["todoListId2"][1].isDone).toBe(true)
@@ -77,7 +76,7 @@ test('title of specific task should be changed', ()=>{
         ]
     }
 
-    const endState = tasksReducer(startState, changeTaskTitleAC("todoListId1", "2", 'TS'))
+    const endState = tasksReducer(startState, changeTaskTitleAC({todoListId: "todoListId1", taskId: "2", taskTitle: 'TS'}))
 
     expect(endState["todoListId1"][1].title).toBe('TS')
     expect(endState["todoListId2"][1].title).toBe('Fruits')

@@ -1,20 +1,23 @@
-import React, {useReducer, useState} from 'react';
-import {v1} from "uuid";
+import React from 'react';
 import './App.css';
 import {TaskType, Todolist} from '../components/Todolist';
 import {AddItemForm} from "../components/AddItemForm";
-import {AppBar, Button, Container, Grid, IconButton, Toolbar, Typography, Box, Paper} from "@mui/material";
+import {AppBar, Box, Button, Container, CssBaseline, Grid, IconButton, Paper, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
+    removeTodolistAC
 } from "../state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "../state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/store";
+import {ThemeProvider} from "@mui/material/styles";
+import {getTheme} from "../common/theme/theme";
+import {changeThemeAC} from "./app-reducer";
+import {My1Icon} from "../icons/My1Icon";
+import {My2Icon} from "../icons/My2Icon";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -27,6 +30,8 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
+type ThemeMode = 'dark' | 'light'
+
 // CRUD operations
 // create ++
 // reade ++
@@ -34,9 +39,17 @@ export type TasksStateType = {
 // delete ++
 
 function App() {
+    const todolists = useSelector<AppRootState, Array<TodolistType>>((state) => state.todolists)
+    const tasks = useSelector<AppRootState, TasksStateType>((state) => state.tasks)
+    const themeMode = useSelector<AppRootState, ThemeMode>(state => state.app.themeMode)
+
+    const theme = getTheme(themeMode)
+
     const dispatch = useDispatch()
-    const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
-    const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
+
+    const changeThemeModeHandler = () => {
+        dispatch(changeThemeAC(themeMode === 'light' ? 'dark' : 'light'))
+    }
 
     const addTodoList = (title: string) => {
         dispatch(addTodolistAC(title))
@@ -71,10 +84,14 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
             <Container fixed>
                 <AppBar position="fixed" color="primary">
-                    <Toolbar>
+                    <Toolbar sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between'
+                    }}>
                         <IconButton
                             size="large"
                             edge="start"
@@ -84,10 +101,14 @@ function App() {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                            Todolist
-                        </Typography>
-                        <Button color="inherit">Login</Button>
+                        <div>
+                            <Button color="inherit">Login</Button>
+                            <Button color="inherit">Logout</Button>
+                            {/*<Switch color={'default'} onChange={changeThemeModeHandler}/>*/}
+                            <IconButton sx={{ ml: 1 }} onClick={changeThemeModeHandler} color="inherit">
+                                {themeMode === 'light' ? <My1Icon/> : <My2Icon/>}
+                            </IconButton>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <Box style={{margin: "85px 0 25px 0"}}><AddItemForm addItem={addTodoList}/></Box>
@@ -131,7 +152,7 @@ function App() {
                     }
                 </Grid>
             </Container>
-        </div>
+        </ThemeProvider>
     )
 }
 

@@ -2,11 +2,11 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {IconButton, Stack, TextField} from "@mui/material";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-type AddItemFormPropsType = {
+type Props = {
     addItem: (itemTitle: string) => void
 }
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm = (props: Props) => {
     const [itemTitle, setItemTitle] = useState<string>("")
     const [error, setError] = useState<string>("")
 
@@ -27,7 +27,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     }
 
     return (
-        <Stack direction={"row"}>
+        <Stack direction={"row"} sx={{alignItems: 'start'}}>
             <TextField
                 id="outlined-error-helper-text"
                 size="small"
@@ -42,10 +42,8 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             <IconButton
                 aria-label="add item"
                 onClick={addItem}
-                size="large"
+                // size="large"
                 color="primary"
-                // sx={{borderRadius: "0", bgcolor: 'primary.main', color: "#fff"}}
-                // disabled={!itemTitle}
             >
                 <AddBoxIcon/>
             </IconButton>

@@ -1,8 +1,8 @@
-import {EditableText} from "./components/EditableText";
+import {EditableText} from "../../../../../../common/components/EditableText";
 import React from "react";
-import {TodolistProps} from "./app/App";
+import {TodolistProps} from "../../../../../../app/App";
 import {useDispatch} from "react-redux";
-import {changeTodolistTitleAC, removeTodolistAC} from "./state/todolists-reducer";
+import {changeTodolistTitleAC, removeTodolistAC} from "../../../../../../model/todolists-reducer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {IconButton} from "@mui/material";
 

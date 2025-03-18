@@ -36,7 +36,7 @@ type ActionsType = RemoveTodolistAT | AddTodolistAT | ChangeTodolistTitleAT | Ch
 
 // меня вызовут и дадут мне стейт (почти всегда объект)
 // и инструкцию (action, тоже объект, который описывает какое-то событие в приложении)
-// согласно прописанному type в этом action (инструкции) я поменяю state
+// согласно прописанному type в этом action (инструкции) я поменяю model
 
 export const todoListId1 = v1();
 export const todoListId2 = v1();

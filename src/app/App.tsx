@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import {TaskProps} from '../components/Todolist';
+import {TaskProps} from '../features/todolist/ui/Todolists/Todolist/Todolist';
 import {Container, CssBaseline} from "@mui/material";
 import {useSelector} from "react-redux";
-import {AppRootState} from "../state/store";
+import {AppRootState} from "../model/store";
 import {ThemeProvider} from "@mui/material/styles";
-import {Header} from "../Header";
+import {Header} from "../common/components/Header";
 import {getTheme} from "../common/theme/theme";
-import {Main} from "../Main";
+import {Main} from "./Main";
 
 export type FilterValues = "all" | "active" | "completed";
 export type TodolistProps = {

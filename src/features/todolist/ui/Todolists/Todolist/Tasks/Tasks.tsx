@@ -1,8 +1,8 @@
 import React from "react";
-import {TasksState, TodolistProps} from "./app/App";
+import {TasksState, TodolistProps} from "../../../../../../app/App";
 import {useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
-import {Task} from "./components/Task/Task";
+import {AppRootState} from "../../../../../../model/store";
+import {Task} from "./Task/Task";
 import {List} from "@mui/material";
 
 type Props = {

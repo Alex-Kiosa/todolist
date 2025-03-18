@@ -1,12 +1,12 @@
 import Checkbox from "@mui/material/Checkbox";
-import {EditableText} from "../EditableText";
+import {EditableText} from "../../../../../../../common/components/EditableText";
 import {IconButton, ListItem} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent} from "react";
-import {TaskProps} from "../Todolist";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../state/tasks-reducer";
+import {TaskProps} from "../../Todolist";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../../../../../../model/tasks-reducer";
 import {useDispatch} from "react-redux";
-import {TodolistProps} from "../../app/App";
+import {TodolistProps} from "../../../../../../../app/App";
 import {getListItemSx} from "./Task.styles";
 
 type Props = {

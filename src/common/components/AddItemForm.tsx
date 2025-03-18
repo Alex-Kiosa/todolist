@@ -42,7 +42,6 @@ export const AddItemForm = (props: Props) => {
             <IconButton
                 aria-label="add item"
                 onClick={addItem}
-                // size="large"
                 color="primary"
             >
                 <AddBoxIcon/>

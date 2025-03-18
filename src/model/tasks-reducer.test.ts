@@ -83,7 +83,7 @@ test('title of specific task should be changed', ()=>{
 })
 
 test('new property with new array should be added when new todolist is added', ()=>{
-    // start state
+    // start model
     const startState: TasksState = {
         "todolistId1": [
             {id: "1", title: "HTML&CSS", isDone: true},
@@ -112,7 +112,7 @@ test('new property with new array should be added when new todolist is added', (
 })
 
 test('property with todolistId should be deleted', ()=>{
-    // start state
+    // start model
     const startState: TasksState = {
         "todolistId1": [
             {id: "1", title: "HTML&CSS", isDone: true},

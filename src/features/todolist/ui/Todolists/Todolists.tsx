@@ -1,12 +1,11 @@
 import {Box, Grid, Paper} from "@mui/material";
 import {Todolist} from "./Todolist/Todolist";
 import React from "react";
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../../model/store";
-import {TodolistProps} from "../../../../app/App";
+import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+import {todolistSelectors} from "../../model/todolistsSelectors";
 
 export const Todolists = () => {
-    const todolists = useSelector<AppRootState, Array<TodolistProps>>((state) => state.todolists)
+    const todolists = useAppSelector(todolistSelectors)
 
     return <>
         {todolists.map(tl => {

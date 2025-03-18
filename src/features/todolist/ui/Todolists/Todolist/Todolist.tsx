@@ -6,7 +6,7 @@ import {FilterTasksButtons} from "./FilterTasksButtons/FilterTasksButtons";
 import {Tasks} from "./Tasks/Tasks";
 import {TodolistTitle} from "./TodolistTtile/TodolistTitle";
 import {addTaskAC} from "../../../../../model/tasks-reducer";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
 
 export type TaskProps = {
     id: string
@@ -19,7 +19,7 @@ type Props = {
 }
 
 export function Todolist({todolist}: Props) {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const addTaskCallback = (title: string) => {
         dispatch(addTaskAC({todolistId: todolist.id, title}))

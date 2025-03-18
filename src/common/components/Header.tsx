@@ -3,14 +3,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {My1Icon} from "../../icons/My1Icon";
 import {My2Icon} from "../../icons/My2Icon";
 import React from "react";
-import {changeThemeAC, ThemeMode} from "../../app/app-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../../model/store";
+import {changeThemeAC} from "../../app/app-reducer";
+import {useAppDispatch} from "../hooks/useAppDispatch";
+import {useAppSelector} from "../hooks/useAppSelector";
 
 export const Header = () => {
-    const themeMode = useSelector<AppRootState, ThemeMode>(state => state.app.themeMode)
+    const themeMode = useAppSelector(state => state.app.themeMode)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const changeThemeModeHandler = () => {
         dispatch(changeThemeAC(themeMode === 'light' ? 'dark' : 'light'))

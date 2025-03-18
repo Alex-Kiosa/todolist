@@ -1,12 +1,12 @@
 import {Box, Grid} from "@mui/material";
 import React from "react";
-import {useDispatch} from "react-redux";
 import {AddItemForm} from "../common/components/AddItemForm";
 import {addTodolistAC} from "../model/todolists-reducer";
 import {Todolists} from "../features/todolist/ui/Todolists/Todolists";
+import {useAppDispatch} from "../common/hooks/useAppDispatch";
 
 export const Main = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const addTodoList = (title: string) => {
         dispatch(addTodolistAC(title))

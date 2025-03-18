@@ -11,7 +11,10 @@ const rootReducer = combineReducers({
 
 export const store = legacy_createStore(rootReducer)
 
-export type AppRootState = ReturnType<typeof rootReducer>
+// Inferred type: {todolists: Array<TodolistProps>, tasks: TasksState, app: InitialState}
+export type AppDispatch = typeof store.dispatch
+
+export type RootState = ReturnType<typeof rootReducer>
 // Lifelike for automatic typing
 
 // @ts-ignore

@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import {TaskProps} from '../features/todolist/ui/Todolists/Todolist/Todolist';
 import {Container, CssBaseline} from "@mui/material";
-import {useSelector} from "react-redux";
-import {AppRootState} from "../model/store";
 import {ThemeProvider} from "@mui/material/styles";
 import {Header} from "../common/components/Header";
 import {getTheme} from "../common/theme/theme";
 import {Main} from "./Main";
+import {useAppSelector} from "../common/hooks/useAppSelector";
+import {selectThemeMode} from "./appSelectors";
 
 export type FilterValues = "all" | "active" | "completed";
 export type TodolistProps = {
@@ -20,8 +20,6 @@ export type TasksState = {
     [key: string]: Array<TaskProps>
 }
 
-type ThemeMode = 'dark' | 'light'
-
 // CRUD operations
 // create ++
 // reade ++
@@ -29,7 +27,7 @@ type ThemeMode = 'dark' | 'light'
 // delete ++
 
 export const App = () => {
-    const themeMode = useSelector<AppRootState, ThemeMode>(state => state.app.themeMode)
+    const themeMode = useAppSelector(selectThemeMode)
 
     return (
         <ThemeProvider theme={getTheme(themeMode)}>

@@ -1,10 +1,10 @@
 import {EditableText} from "../../../../../../common/components/EditableText";
 import React from "react";
 import {TodolistProps} from "../../../../../../app/App";
-import {useDispatch} from "react-redux";
 import {changeTodolistTitleAC, removeTodolistAC} from "../../../../../../model/todolists-reducer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {IconButton} from "@mui/material";
+import {useAppDispatch} from "../../../../../../common/hooks/useAppDispatch";
 
 type Props = {
     todolist: TodolistProps
@@ -13,7 +13,7 @@ type Props = {
 export const TodolistTitle = ({todolist}: Props) => {
     const {id, title} = todolist
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const changeTodoListTitleHandler = (title: string) => {
         dispatch(changeTodolistTitleAC({id, title}))

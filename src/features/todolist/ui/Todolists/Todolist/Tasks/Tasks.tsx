@@ -1,16 +1,16 @@
 import React from "react";
-import {TasksState, TodolistProps} from "../../../../../../app/App";
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../../../../model/store";
+import {TodolistProps} from "../../../../../../app/App";
 import {Task} from "./Task/Task";
 import {List} from "@mui/material";
+import {useAppSelector} from "../../../../../../common/hooks/useAppSelector";
+import {tasksSelectors} from "../../../../model/tasksSelectors";
 
 type Props = {
     todolist: TodolistProps
 }
 
 export const Tasks = ({todolist}: Props) => {
-    const tasks = useSelector<AppRootState, TasksState>((state) => state.tasks)
+    const tasks = useAppSelector(tasksSelectors)
 
     let tasksForTodolist = tasks[todolist.id];
 

@@ -1,5 +1,5 @@
 import Checkbox from "@mui/material/Checkbox";
-import {EditableText} from "../../../../../../../common/components/EditableText";
+import {EditableSpan} from "../../../../../../../common/components/EditableSpan";
 import {IconButton, ListItem} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {ChangeEvent} from "react";
@@ -35,7 +35,7 @@ export const Task = ({todolist, task}: Props) => {
         <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
             <div>
                 <Checkbox checked={task.isDone} color="secondary" onChange={changeTaskStatusHandler}/>
-                <EditableText value={task.title} onChange={changeTaskTitleHandler}/>
+                <EditableSpan value={task.title} onChange={changeTaskTitleHandler}/>
             </div>
             <IconButton aria-label="delete" onClick={removeTaskHandler}>
                 <DeleteIcon/>

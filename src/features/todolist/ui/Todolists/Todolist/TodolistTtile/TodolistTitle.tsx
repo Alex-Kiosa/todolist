@@ -1,4 +1,4 @@
-import {EditableText} from "../../../../../../common/components/EditableText";
+import {EditableSpan} from "../../../../../../common/components/EditableSpan";
 import React from "react";
 import {TodolistProps} from "../../../../../../app/App";
 import {changeTodolistTitleAC, removeTodolistAC} from "../../../../../../model/todolists-reducer";
@@ -24,7 +24,7 @@ export const TodolistTitle = ({todolist}: Props) => {
     }
 
     return <>
-        <h3><EditableText value={title} onChange={changeTodoListTitleHandler}/></h3>
+        <h3><EditableSpan value={title} onChange={changeTodoListTitleHandler}/></h3>
         <IconButton aria-label="delete" onClick={removeTodoListHandler} sx={{alignSelf: "center"}}>
             <DeleteIcon/>
         </IconButton>

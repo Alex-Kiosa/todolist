@@ -1,12 +1,13 @@
 import React from "react"
-import { TodolistProps } from "../../../../../../app/App"
-import { Task } from "./Task/Task"
-import { List } from "@mui/material"
-import { useAppSelector } from "common/hooks/useAppSelector"
-import { tasksSelectors } from "../../../../model/tasksSelectors"
+import {Task} from "./Task/Task"
+import {List} from "@mui/material"
+import {useAppSelector} from "common/hooks/useAppSelector"
+import {tasksSelectors} from "../../../../model/tasksSelectors"
+import {TodolistDomainType} from "../../../../model/todolists-reducer";
+import {TaskStatuses} from "common/enums";
 
 type Props = {
-  todolist: TodolistProps
+  todolist: TodolistDomainType
 }
 
 export const Tasks = ({ todolist }: Props) => {
@@ -19,10 +20,10 @@ export const Tasks = ({ todolist }: Props) => {
   }
 
   if (todolist.filter === "active") {
-    tasksForTodolist = tasksForTodolist.filter((task) => !task.isDone)
+    tasksForTodolist = tasksForTodolist.filter((task) => task.status === TaskStatuses.New)
   }
   if (todolist.filter === "completed") {
-    tasksForTodolist = tasksForTodolist.filter((task) => task.isDone)
+    tasksForTodolist = tasksForTodolist.filter((task) => task.status === TaskStatuses.Completed)
   }
 
   return (

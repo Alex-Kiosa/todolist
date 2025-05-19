@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { FilterValues, TodolistProps } from "../../../app/App"
+import {TodolistType} from "../api/todolistsApi.types";
 
 export type RemoveTodolistAT = {
   type: "REMOVE-TODOLIST" // тип преобразования
@@ -27,7 +27,7 @@ type ChangeTodolistTitleAT = {
 type ChangeTodolistFilterAT = {
   type: "CHANGE-TODOLIST-FILTER"
   payload: {
-    filter: FilterValues
+    filter: FilterValuesType
     id: string
   }
 }
@@ -38,22 +38,30 @@ type ActionsType = RemoveTodolistAT | AddTodolistAT | ChangeTodolistTitleAT | Ch
 // и инструкцию (action, тоже объект, который описывает какое-то событие в приложении)
 // согласно прописанному type в этом action (инструкции) я поменяю model
 
-export const todoListId1 = v1()
-export const todoListId2 = v1()
+const initialState: Array<TodolistDomainType> = []
 
-const initialState: Array<TodolistProps> = []
+export type FilterValuesType = "all" | "active" | "completed"
+export type TodolistDomainType = TodolistType & {
+  filter: FilterValuesType
+}
 
 export const todolistsReducer = (
-  state: Array<TodolistProps> = initialState,
+  state: Array<TodolistDomainType> = initialState,
   action: ActionsType,
-): Array<TodolistProps> => {
+): Array<TodolistDomainType> => {
   switch (action.type) {
     case "REMOVE-TODOLIST": {
       return state.filter((tl) => tl.id !== action.payload.id)
     }
 
     case "ADD-TODOLIST": {
-      return [{ id: action.payload.id, title: action.payload.title, filter: "all" }, ...state]
+      return [{
+        id: action.payload.id,
+        title: action.payload.title,
+        filter: "all",
+        addedDate: "",
+        order: 0
+      }, ...state]
     }
 
     case "CHANGE-TODOLIST-TITLE": {
@@ -94,6 +102,6 @@ export const changeTodolistTitleAC = (payload: { id: string; title: string }): C
   return { type: "CHANGE-TODOLIST-TITLE", payload } as const
 }
 
-export const changeTodolistFilterAC = (payload: { id: string; filter: FilterValues }): ChangeTodolistFilterAT => {
+export const changeTodolistFilterAC = (payload: { id: string; filter: FilterValuesType }): ChangeTodolistFilterAT => {
   return { type: "CHANGE-TODOLIST-FILTER", payload } as const
 }

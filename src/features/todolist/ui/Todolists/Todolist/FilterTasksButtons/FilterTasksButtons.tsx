@@ -1,11 +1,10 @@
 import { Button, Stack } from "@mui/material"
 import React from "react"
-import { FilterValues, TodolistProps } from "../../../../../../app/App"
-import { changeTodolistFilterAC } from "../../../../model/todolists-reducer"
+import {changeTodolistFilterAC, FilterValuesType, TodolistDomainType} from "../../../../model/todolists-reducer"
 import { useAppDispatch } from "common/hooks"
 
 type Props = {
-  todolist: TodolistProps
+  todolist: TodolistDomainType
 }
 
 export const FilterTasksButtons = ({ todolist }: Props) => {
@@ -13,7 +12,7 @@ export const FilterTasksButtons = ({ todolist }: Props) => {
 
   const dispatch = useAppDispatch()
 
-  const changeFilterTasksHandler = (filter: FilterValues) => {
+  const changeFilterTasksHandler = (filter: FilterValuesType) => {
     dispatch(changeTodolistFilterAC({ id, filter }))
   }
 

@@ -1,11 +1,11 @@
-export enum TaskStatus {
+export enum TaskStatuses {
   New,
   InProgress,
   Completed,
   Draft,
 }
 
-export enum TaskPriority {
+export enum TaskPriorities {
   Low,
   Middle,
   High,

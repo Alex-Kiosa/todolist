@@ -1,12 +1,12 @@
 import React from "react"
 import { Container, CssBaseline } from "@mui/material"
 import { ThemeProvider } from "@mui/material/styles"
-import { Header } from "common/components/Header/Header"
+import { Header } from "common/components"
 import { getTheme } from "common/theme"
 import { Main } from "./Main"
 import { useAppSelector } from "common/hooks"
 import { selectThemeMode } from "./appSelectors"
-import {DomainTask} from "../features/todolist/api/tasksApi.types";
+import { DomainTask } from "../features/todolist/api/tasksApi.types"
 
 export type TasksStateType = {
   [key: string]: Array<DomainTask>

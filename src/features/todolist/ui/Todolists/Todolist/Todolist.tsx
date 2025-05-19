@@ -1,12 +1,12 @@
 import React from "react"
-import { AddItemForm } from "common/components/AddItemForm/AddItemForm"
+import { AddItemForm } from "common/components"
 import { Stack } from "@mui/material"
 import { FilterTasksButtons } from "./FilterTasksButtons/FilterTasksButtons"
 import { Tasks } from "./Tasks/Tasks"
 import { TodolistTitle } from "./TodolistTtile/TodolistTitle"
 import { addTaskAC } from "../../../model/tasks-reducer"
 import { useAppDispatch } from "common/hooks"
-import {TodolistDomainType} from "../../../model/todolists-reducer";
+import { TodolistDomainType } from "../../../model/todolists-reducer"
 
 type Props = {
   todolist: TodolistDomainType

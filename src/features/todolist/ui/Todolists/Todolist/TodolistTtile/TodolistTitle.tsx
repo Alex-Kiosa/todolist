@@ -4,7 +4,7 @@ import { changeTodolistTitleAC, removeTodolistAC } from "../../../../model/todol
 import DeleteIcon from "@mui/icons-material/Delete"
 import { IconButton } from "@mui/material"
 import { useAppDispatch } from "common/hooks"
-import {TodolistType} from "../../../../api/todolistsApi.types";
+import { TodolistType } from "../../../../api/todolistsApi.types"
 
 type Props = {
   todolist: TodolistType

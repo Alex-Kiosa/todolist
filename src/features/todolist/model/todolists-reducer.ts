@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import {TodolistType} from "../api/todolistsApi.types";
+import { TodolistType } from "../api/todolistsApi.types"
 
 export type RemoveTodolistAT = {
   type: "REMOVE-TODOLIST" // тип преобразования
@@ -55,13 +55,16 @@ export const todolistsReducer = (
     }
 
     case "ADD-TODOLIST": {
-      return [{
-        id: action.payload.id,
-        title: action.payload.title,
-        filter: "all",
-        addedDate: "",
-        order: 0
-      }, ...state]
+      return [
+        {
+          id: action.payload.id,
+          title: action.payload.title,
+          filter: "all",
+          addedDate: "",
+          order: 0,
+        },
+        ...state,
+      ]
     }
 
     case "CHANGE-TODOLIST-TITLE": {

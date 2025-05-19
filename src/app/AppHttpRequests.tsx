@@ -18,7 +18,7 @@ export const AppHttpRequests = () => {
       setTodolists(todolists)
       todolists.forEach((tl) => {
         tasksApi.getTasks(tl.id).then((res) => {
-          setTasks((prevTasksState) => ({...prevTasksState, [tl.id]: res.data.items}))
+          setTasks((prevTasksState) => ({ ...prevTasksState, [tl.id]: res.data.items }))
         })
       })
     })
@@ -28,7 +28,7 @@ export const AppHttpRequests = () => {
     todolistsApi.createTodolist(title).then((res) => {
       const newTodolist = res.data.data.item
       setTodolists([newTodolist, ...todolists])
-      setTasks({...tasks, [newTodolist.id]: []})
+      setTasks({ ...tasks, [newTodolist.id]: [] })
     })
   }
 
@@ -69,7 +69,7 @@ export const AppHttpRequests = () => {
       status: status,
       priority: task.priority,
       startDate: task.startDate,
-      deadline: task.deadline
+      deadline: task.deadline,
     }
 
     tasksApi.updateTask({ todolistId: task.todoListId, taskId: task.id, model }).then((res) => {
@@ -85,7 +85,7 @@ export const AppHttpRequests = () => {
       status: TaskStatuses.InProgress,
       priority: task.priority,
       startDate: task.startDate,
-      deadline: task.deadline
+      deadline: task.deadline,
     }
 
     tasksApi.updateTask({ todolistId: task.todoListId, taskId: task.id, model }).then((res) => {
@@ -103,8 +103,7 @@ export const AppHttpRequests = () => {
         return (
           <div key={tl.id} style={todolist}>
             <div>
-              <EditableSpan value={tl.title}
-                            onChange={(title: string) => updateTodolistHandler(tl.id, title)} />
+              <EditableSpan value={tl.title} onChange={(title: string) => updateTodolistHandler(tl.id, title)} />
               <button onClick={() => removeTodolistHandler(tl.id)}>x</button>
             </div>
             <AddItemForm addItem={(title) => createTaskHandler(tl.id, title)} />
@@ -114,10 +113,8 @@ export const AppHttpRequests = () => {
               tasks[tl.id].map((task: DomainTask) => {
                 return (
                   <div key={task.id}>
-                    <Checkbox checked={task.status === 2}
-                              onChange={(e) => changeTaskStatusHandler(e, task)} />
-                    <EditableSpan value={task.title}
-                                  onChange={(title) => changeTaskTitleHandler(title, task)} />
+                    <Checkbox checked={task.status === 2} onChange={(e) => changeTaskStatusHandler(e, task)} />
+                    <EditableSpan value={task.title} onChange={(title) => changeTaskTitleHandler(title, task)} />
                     <button onClick={() => removeTaskHandler(task.id, tl.id)}>x</button>
                   </div>
                 )
@@ -137,5 +134,5 @@ const todolist: React.CSSProperties = {
   width: "300px",
   display: "flex",
   justifyContent: "space-between",
-  flexDirection: "column"
+  flexDirection: "column",
 }

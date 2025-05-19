@@ -1,10 +1,10 @@
 import React from "react"
-import {Task} from "./Task/Task"
-import {List} from "@mui/material"
-import {useAppSelector} from "common/hooks/useAppSelector"
-import {tasksSelectors} from "../../../../model/tasksSelectors"
-import {TodolistDomainType} from "../../../../model/todolists-reducer";
-import {TaskStatuses} from "common/enums";
+import { Task } from "./Task/Task"
+import { List } from "@mui/material"
+import { useAppSelector } from "common/hooks/useAppSelector"
+import { tasksSelectors } from "../../../../model/tasksSelectors"
+import { TodolistDomainType } from "../../../../model/todolists-reducer"
+import { TaskStatuses } from "common/enums"
 
 type Props = {
   todolist: TodolistDomainType

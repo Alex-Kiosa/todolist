@@ -1,12 +1,12 @@
 import Checkbox from "@mui/material/Checkbox"
-import React, { ChangeEvent, useEffect, useState } from "react"
-import { TodolistType } from "../features/todolist/api/todolistsApi.types"
-import { DomainTask, UpdateTaskModel } from "../features/todolist/api/tasksApi.types"
-import { todolistsApi } from "../features/todolist/api/todolistsApi"
-import { TaskStatuses } from "common/enums/"
-import { AddItemForm } from "common/components/AddItemForm/AddItemForm"
-import { EditableSpan } from "common/components"
-import { tasksApi } from "../features/todolist/api/taskApi"
+import React, {ChangeEvent, useEffect, useState} from "react"
+import {TodolistType} from "../features/todolist/api/todolistsApi.types"
+import {DomainTask, UpdateTaskModel} from "../features/todolist/api/tasksApi.types"
+import {todolistsApi} from "../features/todolist/api/todolistsApi"
+import {TaskStatuses} from "common/enums/"
+import {AddItemForm} from "common/components/AddItemForm/AddItemForm"
+import {EditableSpan} from "common/components"
+import {tasksApi} from "../features/todolist/api/taskApi"
 
 export const AppHttpRequests = () => {
   const [todolists, setTodolists] = useState<Array<TodolistType>>([])
@@ -54,7 +54,7 @@ export const AppHttpRequests = () => {
   }
 
   const removeTaskHandler = (taskId: string, todolistId: string) => {
-    tasksApi.deleteTasks({ todolistId, taskId }).then((res) => {
+    tasksApi.removeTask({ todolistId, taskId }).then((res) => {
       const newTasks = tasks[todolistId].filter((task) => task.id !== taskId)
       setTasks({ ...tasks, [todolistId]: newTasks })
     })

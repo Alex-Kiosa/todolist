@@ -1,12 +1,12 @@
 import React from "react"
-import { AddItemForm } from "common/components"
-import { Stack } from "@mui/material"
-import { FilterTasksButtons } from "./FilterTasksButtons/FilterTasksButtons"
-import { Tasks } from "./Tasks/Tasks"
-import { TodolistTitle } from "./TodolistTtile/TodolistTitle"
-import { addTaskAC } from "../../../model/tasks-reducer"
-import { useAppDispatch } from "common/hooks"
-import { TodolistDomainType } from "../../../model/todolists-reducer"
+import {AddItemForm} from "common/components"
+import {Stack} from "@mui/material"
+import {FilterTasksButtons} from "./FilterTasksButtons/FilterTasksButtons"
+import {Tasks} from "./Tasks/Tasks"
+import {TodolistTitle} from "./TodolistTtile/TodolistTitle"
+import {createTaskTC} from "../../../model/tasks-reducer"
+import {useAppDispatch} from "common/hooks"
+import {TodolistDomainType} from "../../../model/todolists-reducer"
 
 type Props = {
   todolist: TodolistDomainType
@@ -15,8 +15,8 @@ type Props = {
 export function Todolist({ todolist }: Props) {
   const dispatch = useAppDispatch()
 
-  const addTaskCallback = (title: string) => {
-    dispatch(addTaskAC({ todolistId: todolist.id, title }))
+  const createTaskHandler = (title: string) => {
+    dispatch(createTaskTC({todolistId: todolist.id, title}))
   }
 
   return (
@@ -24,7 +24,7 @@ export function Todolist({ todolist }: Props) {
       <Stack direction="row" sx={{ justifyContent: "space-between" }}>
         <TodolistTitle todolist={todolist} />
       </Stack>
-      <AddItemForm addItem={addTaskCallback} />
+      <AddItemForm addItem={createTaskHandler} />
       <Tasks todolist={todolist} />
       <FilterTasksButtons todolist={todolist} />
     </>

@@ -1,10 +1,12 @@
-import React from "react"
-import { Task } from "./Task/Task"
-import { List } from "@mui/material"
-import { useAppSelector } from "common/hooks/useAppSelector"
-import { tasksSelectors } from "../../../../model/tasksSelectors"
-import { TodolistDomainType } from "../../../../model/todolists-reducer"
-import { TaskStatuses } from "common/enums"
+import React, {useEffect} from "react"
+import {Task} from "./Task/Task"
+import {List} from "@mui/material"
+import {useAppSelector} from "common/hooks/useAppSelector"
+import {tasksSelectors} from "../../../../model/tasksSelectors"
+import {TodolistDomainType} from "../../../../model/todolists-reducer"
+import {TaskStatuses} from "common/enums"
+import {fetchTasksTC} from "../../../../model/tasks-reducer";
+import {useAppDispatch} from "common/hooks";
 
 type Props = {
   todolist: TodolistDomainType
@@ -12,6 +14,12 @@ type Props = {
 
 export const Tasks = ({ todolist }: Props) => {
   const tasks = useAppSelector(tasksSelectors)
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchTasksTC(todolist.id))
+  }, [])
 
   let tasksForTodolist = tasks[todolist.id]
 

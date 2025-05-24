@@ -1,7 +1,7 @@
-import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer } from "../tasks-reducer"
-import { TasksStateType } from "../../../../app/App"
-import { addTodolistAC, removeTodolistAC } from "../todolists-reducer"
-import { TaskPriorities, TaskStatuses } from "common/enums"
+import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, removeTaskAC, tasksReducer} from "../tasks-reducer"
+import {TasksStateType} from "../../../../app/App"
+import {addTodolistAC, removeTodolistAC} from "../todolists-reducer"
+import {TaskPriorities, TaskStatuses} from "common/enums"
 
 let startState: TasksStateType = {}
 
@@ -76,7 +76,7 @@ beforeEach(() => {
 })
 
 test("task should be added in correct todolist", () => {
-  const endState = tasksReducer(startState, addTaskAC({ todolistId: "todolistId2", title: "Oil" }))
+  const endState = tasksReducer(startState, createTaskAC({ todolistId: "todolistId2", title: "Oil" }))
 
   expect(endState["todolistId1"].length).toBe(3)
   expect(endState["todolistId2"].length).toBe(3)

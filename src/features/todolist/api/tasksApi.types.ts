@@ -27,3 +27,12 @@ export type UpdateTaskModel = {
   startDate: string
   deadline: string
 }
+
+export type UpdateTaskDomainModel = {
+  title?: string
+  description?: string
+  status?: TaskStatuses
+  priority?: TaskPriorities
+  startDate?: string
+  deadline?: string
+}

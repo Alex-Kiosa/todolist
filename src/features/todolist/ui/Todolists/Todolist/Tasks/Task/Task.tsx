@@ -2,16 +2,18 @@ import Checkbox from "@mui/material/Checkbox"
 import {IconButton, ListItem} from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import React, {ChangeEvent} from "react"
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskTC} from "../../../../../model/tasks-reducer"
+import {
+    removeTaskTC, updateTaskTC
+} from "../../../../../model/tasks-reducer"
 import {getListItemSx} from "./Task.styles"
 import {useAppDispatch} from "common/hooks/useAppDispatch"
 import {EditableSpan} from "common/components"
-import {TodolistDomainType} from "../../../../../model/todolists-reducer"
+import {DomainTodolist} from "../../../../../model/todolists-reducer"
 import {TaskStatuses} from "common/enums"
 import {DomainTask} from "../../../../../api/tasksApi.types"
 
 type Props = {
-    todolist: TodolistDomainType
+    todolist: DomainTodolist
     task: DomainTask
 }
 
@@ -19,13 +21,16 @@ export const Task = ({todolist, task}: Props) => {
     const dispatch = useAppDispatch()
 
     const changeTaskTitleHandler = (title: string) => {
-        dispatch(changeTaskTitleAC({todolistId: todolist.id, taskId: task.id, title}))
+        task = {...task, title}
+
+        dispatch(updateTaskTC({todolistId: todolist.id, taskId: task.id, domainModel: task}))
     }
 
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
+        task = {...task, status}
 
-        dispatch(changeTaskStatusAC({todolistId: todolist.id, taskId: task.id, status}))
+        dispatch(updateTaskTC({todolistId: todolist.id, taskId: task.id, domainModel: task}))
     }
 
     const removeTaskHandler = () => {

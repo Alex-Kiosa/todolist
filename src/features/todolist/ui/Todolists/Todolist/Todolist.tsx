@@ -6,10 +6,10 @@ import {Tasks} from "./Tasks/Tasks"
 import {TodolistTitle} from "./TodolistTtile/TodolistTitle"
 import {createTaskTC} from "../../../model/tasks-reducer"
 import {useAppDispatch} from "common/hooks"
-import {TodolistDomainType} from "../../../model/todolists-reducer"
+import {DomainTodolist} from "../../../model/todolists-reducer"
 
 type Props = {
-  todolist: TodolistDomainType
+  todolist: DomainTodolist
 }
 
 export function Todolist({ todolist }: Props) {

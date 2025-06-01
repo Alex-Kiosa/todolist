@@ -1,15 +1,15 @@
-import { Box, Grid } from "@mui/material"
+import {Box, Grid} from "@mui/material"
 import React from "react"
-import { AddItemForm } from "common/components"
-import { addTodolistAC } from "../features/todolist/model/todolists-reducer"
-import { Todolists } from "../features/todolist/ui/Todolists/Todolists"
-import { useAppDispatch } from "common/hooks"
+import {AddItemForm} from "common/components"
+import {addTodolistTC} from "../features/todolist/model/todolists-reducer"
+import {Todolists} from "../features/todolist/ui/Todolists/Todolists"
+import {useAppDispatch} from "common/hooks"
 
 export const Main = () => {
   const dispatch = useAppDispatch()
 
   const addTodoList = (title: string) => {
-    dispatch(addTodolistAC(title))
+    dispatch(addTodolistTC(title))
   }
 
   return (

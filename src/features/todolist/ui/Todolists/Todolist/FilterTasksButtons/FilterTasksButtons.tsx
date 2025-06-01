@@ -1,10 +1,10 @@
 import { Button, Stack } from "@mui/material"
 import React from "react"
-import { changeTodolistFilterAC, FilterValuesType, TodolistDomainType } from "../../../../model/todolists-reducer"
+import { changeTodolistFilterAC, FilterValuesType, DomainTodolist } from "../../../../model/todolists-reducer"
 import { useAppDispatch } from "common/hooks"
 
 type Props = {
-  todolist: TodolistDomainType
+  todolist: DomainTodolist
 }
 
 export const FilterTasksButtons = ({ todolist }: Props) => {

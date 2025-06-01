@@ -6,10 +6,9 @@ import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
 import "./index.css"
 import * as serviceWorker from "./serviceWorker"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { store } from "./app/store"
-import { Provider } from "react-redux"
-import { AppHttpRequests } from "./app/AppHttpRequests"
+import {createTheme, ThemeProvider} from "@mui/material/styles"
+import {store} from "./app/store"
+import {Provider} from "react-redux"
 import App from "./app/App"
 
 const theme = createTheme({
@@ -27,7 +26,6 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
       <App />
-      {/*<AppHttpRequests />*/}
     </Provider>
   </ThemeProvider>,
   document.getElementById("root"),

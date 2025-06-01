@@ -54,5 +54,10 @@
   "devDependencies": {
     "gh-pages": "^4.0.0",
     "prettier": "3.5.3"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

@@ -3,12 +3,13 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC, setTodolistsAC,
-    TodolistDomainType,
+    deleteTodolistAC,
+    DomainTodolist,
+    setTodolistsAC,
     todolistsReducer,
 } from "../todolists-reducer"
 
-let startState: Array<TodolistDomainType> = []
+let startState: Array<DomainTodolist> = []
 let todoListId1: string
 let todoListId2: string
 
@@ -25,7 +26,7 @@ beforeEach(() => {
 
 test("correct todoList should be removed", () => {
     // 2. вызов тестируемой ф-ции
-    const endState = todolistsReducer(startState, removeTodolistAC(todoListId1))
+    const endState = todolistsReducer(startState, deleteTodolistAC(todoListId1))
 
     // 3. сверка результата с ожиданием
     expect(endState.length).toBe(1)
@@ -33,13 +34,18 @@ test("correct todoList should be removed", () => {
 })
 
 test("correct todoList should be added", () => {
-    const newTodoListTitle = "New TodoList"
+    const newTodolist = {
+        id: "any id",
+        title: "new todolist",
+        order: 0,
+        addedDate: "",
+    }
 
-    const endState = todolistsReducer(startState, addTodolistAC(newTodoListTitle))
+    const endState = todolistsReducer(startState, addTodolistAC(newTodolist))
 
     expect(endState.length).toBe(3)
     expect(endState[2].filter).toBe("all")
-    expect(endState[2].id).toBeDefined()
+    expect(endState[0].title).toBe(newTodolist.title)
 })
 
 test("correct todoList title should be changed", () => {

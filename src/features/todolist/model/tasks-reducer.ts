@@ -34,20 +34,21 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case "REMOVE-TASK": {
             return {
                 ...state,
-                [action.payload.todolistId]: state[action.payload.todolistId].filter((t) => t.id !== action.payload.taskId,)
+                [action.payload.todolistId]:
+                    state[action.payload.todolistId].filter((task) => task.id !== action.payload.taskId )
             }
         }
 
         case "UPDATE-TASK": {
             return {
                 ...state,
-                [action.payload.todolistId]: state[action.payload.todolistId].map((t) =>
-                    t.id === action.payload.taskId
+                [action.payload.todolistId]: state[action.payload.todolistId].map((task) =>
+                    task.id === action.payload.taskId
                         ? {
-                            ...t,
+                            ...task,
                             ...action.payload.domainModel,
                         }
-                        : t,
+                        : task,
                 )
             }
         }
@@ -59,7 +60,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case "REMOVE-TODOLIST": {
             const stateCopy = {...state}
             delete stateCopy[action.payload.id]
-
             return stateCopy
         }
 
@@ -69,60 +69,33 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
 }
 
 // Actions types
-type AddTaskAT = ReturnType<typeof createTaskAC>
-type RemoveTaskAT = ReturnType<typeof removeTaskAC>
-type UpdateTaskAT = ReturnType<typeof updateTaskAC>
-type SetTasksAT = {
-    type: "SET-TASKS"
-    payload: {
-        tasks: Array<DomainTask>
-        todolistId: string
-    }
-}
 type ActionsType =
-    RemoveTaskAT
-    | AddTaskAT
-    | UpdateTaskAT
+    | ReturnType<typeof setTasksAC>
+    | ReturnType<typeof updateTaskAC>
+    | ReturnType<typeof createTaskAC>
+    | ReturnType<typeof removeTaskAC>
     | AddTodolistAT
-    | RemoveTodolistAT
     | SetTodolistsAT
-    | SetTasksAT
+    | RemoveTodolistAT
 
-// Action creators - нужны для создания action объектов
-// Responsibility action creator - создание объекта action
+// Action creators
 export const createTaskAC = (payload: { task: DomainTask }) => {
-    return {
-        type: "ADD-TASK",
-        payload,
-    } as const
+    return {type: "ADD-TASK", payload,} as const
 }
 
 export const removeTaskAC = (payload: { todolistId: string; taskId: string }) => {
-    return {
-        type: "REMOVE-TASK",
-        payload,
-    } as const
+    return {type: "REMOVE-TASK", payload,} as const
 }
 
-export const updateTaskAC = (payload: {
-    todolistId: string
-    taskId: string
-    domainModel: UpdateTaskDomainModel
-}) => {
-    return {
-        type: "UPDATE-TASK",
-        payload,
-    } as const
+export const updateTaskAC = (payload: { todolistId: string, taskId: string, domainModel: UpdateTaskDomainModel }) => {
+    return {type: "UPDATE-TASK", payload,} as const
 }
 
 export const setTasksAC = (payload: {
     tasks: Array<DomainTask>
     todolistId: string
-}): SetTasksAT => {
-    return {
-        type: "SET-TASKS",
-        payload
-    }
+}) => {
+    return {type: "SET-TASKS", payload} as const
 }
 
 // Thunks
@@ -150,7 +123,6 @@ export const createTaskTC = (payload: { todolistId: string, title: string }) => 
         tasksApi.createTask(payload)
             .then((res) => {
                 dispatch(createTaskAC({task: res.data.data.item}))
-                console.log({task: res.data.data.item})
             })
     }
 }

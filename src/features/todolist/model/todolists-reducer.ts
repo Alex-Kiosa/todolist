@@ -4,11 +4,6 @@ import {Dispatch} from "redux";
 
 const initialState: Array<DomainTodolist> = []
 
-export type FilterValuesType = "all" | "active" | "completed"
-export type DomainTodolist = Todolist & {
-    filter: FilterValuesType
-}
-
 // меня вызовут и дадут мне стейт (почти всегда объект)
 // и инструкцию (action, тоже объект, который описывает какое-то событие в приложении)
 // согласно прописанному type в этом action (инструкции) я поменяю model
@@ -30,29 +25,20 @@ export const todolistsReducer = (
         }
 
         case "CHANGE-TODOLIST-TITLE": {
-            const newTodoLists = [...state]
-            const todoList = newTodoLists.find((tl) => tl.id === action.payload.id)
-            if (todoList) todoList.title = action.payload.title
-
-            return newTodoLists
+            return state.map((tl) => {
+                return tl.id === action.payload.id ? {...tl, title: action.payload.title} : tl
+            })
         }
 
         case "CHANGE-TODOLIST-FILTER": {
-            const newTodoLists = [...state]
-            const todoList = newTodoLists.find((tl) => tl.id === action.payload.id)
-            if (todoList) {
-                todoList.filter = action.payload.filter
-            }
-
-            return newTodoLists
+            return state.map((tl) => {
+                return tl.id === action.payload.id ? {...tl, title: action.payload.filter} : tl
+            })
         }
 
         case "SET-TODOLISTS": {
             return action.todolists.map(tl => {
-                return {
-                    ...tl,
-                    filter: "all"
-                }
+                return {...tl, filter: "all"}
             })
         }
 
@@ -67,8 +53,17 @@ export type AddTodolistAT = ReturnType<typeof addTodolistAC>
 export type ChangeTodolistTitleAT = ReturnType<typeof changeTodolistTitleAC>
 export type ChangeTodolistFilterAT = ReturnType<typeof changeTodolistFilterAC>
 export type SetTodolistsAT = ReturnType<typeof setTodolistsAC>
+export type FilterValuesType = "all" | "active" | "completed"
+export type DomainTodolist = Todolist & {
+    filter: FilterValuesType
+}
 
-type ActionsType = RemoveTodolistAT | AddTodolistAT | ChangeTodolistTitleAT | ChangeTodolistFilterAT | SetTodolistsAT
+type ActionsType =
+    | RemoveTodolistAT
+    | AddTodolistAT
+    | ChangeTodolistTitleAT
+    | ChangeTodolistFilterAT
+    | SetTodolistsAT
 
 // action creators - нужны для создания action объектов
 // другими словами responsibility action creator - создание объекта action
@@ -96,7 +91,7 @@ export const setTodolistsAC = (todolists: Array<Todolist>) => {
 // Thunks
 // thunk (санка) - функция, которая принимает dispatch, getState (опционально) и
 // предназначена для того, чтобы внутри нее делать побочные эффекты (запросы на сервер) и диспатчить action или
-// другие thunk
+// другие thunks
 
 export const fetchTodolistsThunkTC = () => {
     return (dispatch: Dispatch) => {

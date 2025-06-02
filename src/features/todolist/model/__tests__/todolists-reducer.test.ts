@@ -59,7 +59,7 @@ test("correct todoList title should be changed", () => {
 })
 
 test("correct filter of todoList should be changed", () => {
-    const newTodoListFilter = "active"
+    const newTodoListFilter = "all"
 
     const endState = todolistsReducer(startState, changeTodolistFilterAC({id: todoListId1, filter: newTodoListFilter}))
 
